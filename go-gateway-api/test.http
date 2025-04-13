@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
   "name": "John Doe",
-  "email": "johaana@mail.com"
+  "email": "aaaaa@mail.com"
 }
 
 ### Get account details
@@ -40,7 +40,7 @@ GET {{baseUrl}}/invoice/{{invoiceId}}
 X-API-Key: {{apiKey}}
 
 {
-  "amount": 15_000,
+  "amount": 15000,
   "description": "Invoice for services rendered",
   "payment_type": "credit_card",
   "card_number": "4111111111111111",

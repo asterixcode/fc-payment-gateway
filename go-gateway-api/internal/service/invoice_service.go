@@ -10,7 +10,10 @@ type InvoiceService struct {
 	accountService    AccountService
 }
 
-func NewInvoiceService(invoiceRepository domain.InvoiceRepository, accountService AccountService) *InvoiceService {
+func NewInvoiceService(
+	invoiceRepository domain.InvoiceRepository,
+	accountService AccountService,
+) *InvoiceService {
 	return &InvoiceService{
 		invoiceRepository: invoiceRepository,
 		accountService:    accountService,
@@ -32,7 +35,7 @@ func (s *InvoiceService) Create(input dto.CreateInvoiceInput) (*dto.InvoiceOutpu
 		return nil, err
 	}
 	if invoice.Status == domain.StatusApproved {
-		_, err := s.accountService.UpdateBalance(accountOutput.APIKey, invoice.Amount)
+		_, err = s.accountService.UpdateBalance(input.APIKey, invoice.Amount)
 		if err != nil {
 			return nil, err
 		}

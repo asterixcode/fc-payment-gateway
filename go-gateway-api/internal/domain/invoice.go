@@ -56,7 +56,7 @@ func NewInvoice(accountID string, amount float64, description string, paymentTyp
 }
 
 func (i *Invoice) Process() error {
-	if i.Amount > 10_000 {
+	if i.Amount > 10000 {
 		return nil
 	}
 
