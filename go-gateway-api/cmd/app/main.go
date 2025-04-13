@@ -14,7 +14,7 @@ import (
 	_ "github.com/lib/pq" // PostgreSQL driver
 )
 
-func getEnv(key string, defaultValue string) string {
+func getEnv(key, defaultValue string) string {
 	if value := os.Getenv(key); value != "" {
 		return value
 	}
@@ -23,10 +23,9 @@ func getEnv(key string, defaultValue string) string {
 
 func main() {
 	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Error loading .env file")
+		log.Fatal("Error loading .env file")
 	}
 
-	// db string connection
 	connStr := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		getEnv("DB_HOST", "db"),
@@ -37,10 +36,9 @@ func main() {
 		getEnv("DB_SSL_MODE", "disable"),
 	)
 
-	// Connect to the database
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
-		log.Fatalf("Error connecting to the database: %v", err)
+		log.Fatal("Error connecting to database: ", err)
 	}
 	defer db.Close()
 
@@ -50,11 +48,11 @@ func main() {
 	invoiceRepository := repository.NewInvoiceRepository(db)
 	invoiceService := service.NewInvoiceService(invoiceRepository, *accountService)
 
-	port := getEnv("PORT", "8080")
+	port := getEnv("HTTP_PORT", "8080")
 	srv := server.NewServer(accountService, invoiceService, port)
 	srv.ConfigureRoutes()
 
 	if err := srv.Start(); err != nil {
-		log.Fatalf("Error starting server: %v", err)
+		log.Fatal("Error starting server: ", err)
 	}
 }
