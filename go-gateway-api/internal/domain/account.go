@@ -27,13 +27,12 @@ func generateAPIKey() string {
 }
 
 func NewAccount(name, email string) *Account {
-
 	account := &Account{
 		ID:        uuid.New().String(),
 		Name:      name,
 		Email:     email,
-		APIKey:    generateAPIKey(),
 		Balance:   0,
+		APIKey:    generateAPIKey(),
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
@@ -45,10 +44,5 @@ func (a *Account) AddBalance(amount float64) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 	a.Balance += amount
-	a.UpdatedAt = time.Now()
-}
-
-func (a *Account) SubtractBalance(amount float64) {
-	a.Balance -= amount
 	a.UpdatedAt = time.Now()
 }
