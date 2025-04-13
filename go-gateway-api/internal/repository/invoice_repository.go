@@ -51,6 +51,7 @@ func (r *InvoiceRepository) FindByID(id string) (*domain.Invoice, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return &invoice, nil
 }
 
@@ -63,6 +64,7 @@ func (r *InvoiceRepository) FindByAccountID(accountID string) ([]*domain.Invoice
 	if err != nil {
 		return nil, err
 	}
+
 	defer rows.Close()
 
 	var invoices []*domain.Invoice
@@ -74,6 +76,7 @@ func (r *InvoiceRepository) FindByAccountID(accountID string) ([]*domain.Invoice
 		if err != nil {
 			return nil, err
 		}
+
 		invoices = append(invoices, &invoice)
 	}
 
@@ -93,6 +96,7 @@ func (r *InvoiceRepository) UpdateStatus(invoice *domain.Invoice) error {
 	if err != nil {
 		return err
 	}
+
 	if rowsAffected == 0 {
 		return domain.ErrInvoiceNotFound
 	}
