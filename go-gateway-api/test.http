@@ -24,14 +24,14 @@ Content-Type: application/json
 X-API-Key: {{apiKey}}
 
 {
-  "amount": 100,
-  "description": "Invoice for services rendered",
-  "payment_type": "credit_card",
-  "card_number": "4111111111111111",
-  "cvv": "123",
-  "expiry_month": 12,
-  "expiry_year": 2025,
-  "cardholder_name": "John Doe"
+    "amount": 100.50,
+    "description": "Invoice test",
+    "payment_type": "credit_card",
+    "card_number": "4111111111111111",
+    "cvv": "123",
+    "expiry_month": 12,
+    "expiry_year": 2025,
+    "cardholder_name": "John Doe"
 }
 
 ### Get invoice details
@@ -39,13 +39,18 @@ X-API-Key: {{apiKey}}
 GET {{baseUrl}}/invoice/{{invoiceId}}
 X-API-Key: {{apiKey}}
 
+### Try to create a high value invoice (> 10000)
+POST {{baseUrl}}/invoice
+Content-Type: application/json
+X-API-Key: {{apiKey}}
+
 {
-  "amount": 15000,
-  "description": "Invoice for services rendered",
-  "payment_type": "credit_card",
-  "card_number": "4111111111111111",
-  "cvv": "123",
-  "expiry_month": "12",
-  "expiry_year": "2025",
-  "cardholder_name": "John Doe"
-}
+    "amount": 15000,
+    "description": "High value invoice test",
+    "payment_type": "credit_card",
+    "card_number": "4111111111111111",
+    "cvv": "123",
+    "expiry_month": 12,
+    "expiry_year": 2025,
+    "cardholder_name": "John Doe"
+} 
