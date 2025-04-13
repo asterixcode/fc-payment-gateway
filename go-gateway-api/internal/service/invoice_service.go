@@ -45,7 +45,7 @@ func (s *InvoiceService) Create(input dto.CreateInvoiceInput) (*dto.InvoiceOutpu
 	return dto.FromInvoice(invoice), nil
 }
 
-func (s *InvoiceService) FindByID(id, apiKey string) (*dto.InvoiceOutput, error) {
+func (s *InvoiceService) GetByID(id, apiKey string) (*dto.InvoiceOutput, error) {
 	invoice, err := s.invoiceRepository.FindByID(id)
 	if err != nil {
 		return nil, err

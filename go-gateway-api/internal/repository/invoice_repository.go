@@ -14,7 +14,7 @@ func NewInvoiceRepository(db *sql.DB) *InvoiceRepository {
 	return &InvoiceRepository{db: db}
 }
 
-func (r *InvoiceRepository) Save(invoice domain.Invoice) error {
+func (r *InvoiceRepository) Save(invoice *domain.Invoice) error {
 	_, err := r.db.Exec(
 		"INSERT INTO invoices (id, account_id, amount, status, description, payment_type, card_last_digits, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
 		invoice.ID,
@@ -94,7 +94,7 @@ func (r *InvoiceRepository) FindByAccountID(accountID string) ([]*domain.Invoice
 	return invoices, nil
 }
 
-func (r *InvoiceRepository) UpdateStatus(invoice domain.Invoice) error {
+func (r *InvoiceRepository) UpdateStatus(invoice *domain.Invoice) error {
 	rows, err := r.db.Exec(`
 		UPDATE invoices
 		SET status = $1, updated_at = $2
